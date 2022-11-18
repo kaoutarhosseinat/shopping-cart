@@ -35,7 +35,7 @@ input.addEventListener("change", quantityChanged);
 }
 let addCart = document.getElementsByClassName("add-cart")
 for (let i = 0; i < addCart.length; i++){
-    let button = addCart[i];
+   let button = addCart[i];
     button.addEventListener("click" , addCartClicked);
 }
 
@@ -49,7 +49,7 @@ function removeCartItem(event){
 function quantityChanged(event){
     let input = event.target
     if(isNaN(input.value) || input.value <= 0 ){
-        input.value = 1;
+        input.value = 0;
     } 
     updatetotal()
 
@@ -64,9 +64,9 @@ function addCartClicked(event){
     addProductToCart(title , price , productImg);
     updatetotal();
 }
-
+let  cartShopBox = document.createElement("div");
 function addProductToCart(title , price , productImg){
-    let  cartShopBox = document.createElement("div");
+    //let  cartShopBox = document.createElement("div");
      cartShopBox.classList.add("cart-box");
     let cartItems = document.getElementsByClassName("cart_content")[0];
     let cartItemsNames = cartItems.getElementsByClassName("cart-product-title");
@@ -75,27 +75,29 @@ function addProductToCart(title , price , productImg){
         alert( "You have already add this item to cart");
         return;
     }
-}
+    }
+
 let cartBoxContent = `
 <img
-            src="res/0c18ca4340f4b045333a95e660a7f0f6.jpg"
+            src="${product-Img}"
             alt=""
-            class="cart-img"
+            class="cart-img add-cart"
             width="70px"
             height="70px"
           />
           <div class="detail-box">
-            <div class="cart-product-title">Table Lamp</div>
-            <div class="cart-price">3000 DZD</div>
+            <div class="cart-product-title">${title}</div>
+            <div class="cart-price">${price}</div>
             <input type="number" value="1" class="cart-quantity" />
           </div>
           <i class="bx bx-trash cart-remove"></i>
 `
-let cartShopBox;
+
 cartShopBox.innerHTML = cartBoxContent;
 cartItems.append(cartShopBox);
 cartShopBox.getElementsByClassName("cart-remove")[0].addEventListener("click", removeCartItem);
 cartShopBox.getElementsByClassName("cart-quantity")[0].addEventListener("change", quantityChanged);
+
 
 
 
