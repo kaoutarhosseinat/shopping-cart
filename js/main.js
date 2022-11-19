@@ -37,8 +37,18 @@ let addCart = document.getElementsByClassName("add-cart")
 for (let i = 0; i < addCart.length; i++){
    let button = addCart[i];
     button.addEventListener("click" , addCartClicked);
+   
 }
+ document.addElmentsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked);
 
+function buyButtonClicked(){
+    let cartContent = document.getElementsByClassName("cart-content")[0];
+
+    while (cartContent.hasChildNodes){
+        cartContent.removeChild(cartContent.firstChild);
+    }
+    updatetotal();
+}
 
 function removeCartItem(event){
     let buttonClicked = event.target;
@@ -113,8 +123,10 @@ function updatetotal(){
         let quantityElement = cartBox.getElementsByClassName("cart-quantity")[0];
         let price = parseFloat(priceElement.innerText.replace("DZD",""));
         let quantity = quantityElement.value;
+   
         total = total + price * quantity;
+     }
         total= Math.round(total * 100)/ 100;
         document.getElementsByClassName("total-price")[0].innerText =total+"DZD";
-    }
+    
 }
